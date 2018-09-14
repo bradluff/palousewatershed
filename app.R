@@ -15,8 +15,9 @@ library(rgdal)
 # Load in the stream layer
 palouse <- readOGR("HUC08Palouse.shp")
 streams <- readOGR("PalouseStreams.shp")
-dem <- raster("PalouseDEM2.tif")
-con.lines <- rasterToContour(dem)
+dem <- raster("PalouseDEM3.tif")
+con.lines <- readOGR("PalouseContour.shp")
+
 
 
 # Define UI
@@ -42,13 +43,12 @@ server <- function(input, output) {
       addPolygons(data = palouse, fill = F, group = "Palouse", color = "#981e32", weight = 3) %>%
       # Add the DEM
       addRasterImage(dem, colors = "Spectral", opacity = 0.5, group = "DEM") %>%
-      # Add stream lines
-      addPolylines(data = con.lines , color = "Green", weight = 1.5, stroke = TRUE, fillOpacity = .75, group = "Contour") %>%
+      # Add contour lines
+      addPolylines(data = con.lines , color = "Brown", weight = 2, stroke = TRUE, fillOpacity = 1, group = "Contour") %>%
       # Add layer control
       addLayersControl(
         overlayGroups =c("Palouse", "DEM", "Streams", "Contour"),
-        options = layersControlOptions(collapsed=FALSE)) %>%
-      hideGroup(c("Contour"))
+        options = layersControlOptions(collapsed=FALSE))
     map
   })
 }
