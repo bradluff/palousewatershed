@@ -33,7 +33,7 @@ server <- function(input, output) {
       # Add basemap
       addTiles() %>%
       # Add stream lines
-      addPolylines(data = streams , color = "Blue", weight = 1.5, stroke = TRUE, fillOpacity = .25, group = "Streams") %>%
+      addPolylines(data = streams , color = "Blue", weight = 2, stroke = TRUE, fillOpacity = .25, group = "Streams") %>%
       # Center the map around Pullman-ish
       setView(lng = -117.3, lat = 47.05, zoom = 9) %>%
       # Add the gages
